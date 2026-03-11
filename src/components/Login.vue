@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
   const rules = {
     required: value => !!value || 'Required.',
@@ -10,6 +13,19 @@ import { ref } from 'vue'
   const show1 = ref(false)
   const show2 = ref(true)
   const password = ref(null)
+  const username = ref(null)
+
+  function login(){
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+    if(username.value == userDetails.email && password.value == userDetails.password){
+    //proceed to homepage
+        router.push('/homepage')
+        localStorage.setItem("isLoggedIn", true);
+
+    }else{
+        console.log('Invalid credentials. Try again')
+     }
+    }
 
 </script>
 
@@ -33,7 +49,7 @@ import { ref } from 'vue'
                             <div class="text-display-small font-weight-medium text-right">Username</div>
                         </v-col>
                         <v-col md="6">
-                            <v-text-field variant="outlined"></v-text-field>
+                            <v-text-field variant="outlined" v-model="username"></v-text-field>
                         </v-col>
                         <v-col md="6">
                             <div class="text-display-small font-weight-medium text-right">Password</div>
@@ -51,12 +67,14 @@ import { ref } from 'vue'
                     </v-row>
                     <v-row>
                         <v-col md="12">
-                            <v-btn color="#CFD0D6" variant="elevated" width="25%">Log in</v-btn>
+                            <v-btn color="#8F00FF" variant="elevated" @click="login" width="25%">Log in</v-btn>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col md="12">
-                            <div>New to MacFit Gym? Create an account</div>
+                            <div>New to MacFit Gym? 
+                                <router-link to="/signup">Create an account</router-link>
+                            </div>
                         </v-col>
                     </v-row>
                 </v-form>
