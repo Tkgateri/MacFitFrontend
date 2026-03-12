@@ -36,7 +36,7 @@ const router = useRouter();
                 <v-form>
                     <v-row>
                         <v-col md="12">
-                            <v-icon size="large">mdi-dumbbell</v-icon>
+                            <v-image src="/FullLogo.jpg"></v-image>
                         </v-col>
                     </v-row>
                     <v-row>
